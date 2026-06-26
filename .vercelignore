@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+build/
+contracts/agentpay/target/
+target/
+**/target/
+.git/
+.vercel/
