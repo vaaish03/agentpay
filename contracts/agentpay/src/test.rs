@@ -125,3 +125,91 @@ fn test_refund_after_timeout() {
     let req_info = client.get_request(&request_id).unwrap();
     assert_eq!(req_info.status, RequestStatus::Refunded);
 }
+
+#[test]
+#[should_panic(expected = "price must be positive")]
+fn test_register_service_zero_price() {
+    let env = Env::default();
+    env.mock_all_auths();
+
+    let contract_id = env.register_contract(None, AgentPayContract);
+    let client = AgentPayContractClient::new(&env, &contract_id);
+
+    let token_admin = Address::generate(&env);
+    let provider_addr = Address::generate(&env);
+    let token = create_token_contract(&env, &token_admin);
+
+    let service_id = Symbol::new(&env, "translation");
+    client.register_service(&provider_addr, &service_id, &0, &token.address);
+}
+
+#[test]
+#[should_panic(expected = "insufficient payment amount")]
+fn test_create_request_insufficient_payment() {
+    let env = Env::default();
+    env.mock_all_auths();
+
+    let contract_id = env.register_contract(None, AgentPayContract);
+    let client = AgentPayContractClient::new(&env, &contract_id);
+
+    let token_admin = Address::generate(&env);
+    let client_addr = Address::generate(&env);
+    let provider_addr = Address::generate(&env);
+    let token = create_token_contract(&env, &token_admin);
+
+    token::StellarAssetClient::new(&env, &token.address).mint(&client_addr, &1000);
+
+    let service_id = Symbol::new(&env, "translation");
+    let price = 50;
+    client.register_service(&provider_addr, &service_id, &price, &token.address);
+
+    let request_hash = BytesN::from_array(&env, &[0; 32]);
+    let amount = 49; // Less than registered price
+    let timeout_seconds = 100;
+    client.create_request(
+        &client_addr,
+        &provider_addr,
+        &service_id,
+        &request_hash,
+        &amount,
+        &timeout_seconds,
+    );
+}
+
+#[test]
+#[should_panic(expected = "not the request provider")]
+fn test_claim_payment_not_provider() {
+    let env = Env::default();
+    env.mock_all_auths();
+
+    let contract_id = env.register_contract(None, AgentPayContract);
+    let client = AgentPayContractClient::new(&env, &contract_id);
+
+    let token_admin = Address::generate(&env);
+    let client_addr = Address::generate(&env);
+    let provider_addr = Address::generate(&env);
+    let unauthorized_addr = Address::generate(&env);
+    let token = create_token_contract(&env, &token_admin);
+
+    token::StellarAssetClient::new(&env, &token.address).mint(&client_addr, &1000);
+
+    let service_id = Symbol::new(&env, "translation");
+    let price = 50;
+    client.register_service(&provider_addr, &service_id, &price, &token.address);
+
+    let request_hash = BytesN::from_array(&env, &[0; 32]);
+    let timeout_seconds = 100;
+    let request_id = client.create_request(
+        &client_addr,
+        &provider_addr,
+        &service_id,
+        &request_hash,
+        &price,
+        &timeout_seconds,
+    );
+
+    let result_hash = BytesN::from_array(&env, &[1; 32]);
+    // Try claiming as unauthorized_addr (not provider_addr)
+    client.claim_payment(&unauthorized_addr, &request_id, &result_hash);
+}
+
