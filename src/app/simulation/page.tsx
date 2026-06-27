@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useAgentPayStore } from "@/store/useAgentPayStore";
 import { MOCK_SERVICES } from "@/lib/stellar";
-import { Play, RotateCcw, Terminal as TerminalIcon, Cpu, Zap, ArrowRight, ShieldCheck } from "lucide-react";
+import { Play, RotateCcw, Terminal as TerminalIcon, Cpu, Zap, ShieldCheck } from "lucide-react";
 import toast from "react-hot-toast";
 
 interface LogEntry {
@@ -422,7 +422,7 @@ export default function Simulation() {
             {logs.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center text-text-muted">
                 <Zap size={24} className="mb-1.5 animate-pulse" />
-                <span>Ready to execute. Press 'Start Run' to trigger workflow.</span>
+                <span>Ready to execute. Press &apos;Start Run&apos; to trigger workflow.</span>
               </div>
             ) : (
               logs.map((log, idx) => (

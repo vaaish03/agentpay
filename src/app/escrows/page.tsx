@@ -3,12 +3,12 @@ import { useState } from "react";
 import { useAgentPayStore } from "@/store/useAgentPayStore";
 import { getStellarExpertUrl, truncateAddress, claimPaymentOnChain, refundRequestOnChain } from "@/lib/stellar";
 import { signTransaction } from "@/lib/freighter";
-import { CheckCircle2, Clock, XCircle, ArrowUpRight, Search, FileText } from "lucide-react";
+import { CheckCircle2, Clock, XCircle, ArrowUpRight, Search } from "lucide-react";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
 
 export default function Escrows() {
-  const { escrows, wallet, isDemoMode, completeEscrow, expireEscrow } = useAgentPayStore();
+  const { escrows, wallet, completeEscrow, expireEscrow } = useAgentPayStore();
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -61,9 +61,10 @@ export default function Escrows() {
       );
       completeEscrow(id, simulatedResultHash);
       toast.success("Soroban escrow claimed on-chain successfully!", { id: "claim-tx" });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      toast.error(err.message || "Failed to submit on-chain claim", { id: "claim-tx" });
+      const msg = err instanceof Error ? err.message : "Failed to submit on-chain claim";
+      toast.error(msg, { id: "claim-tx" });
     }
   };
 
@@ -110,9 +111,10 @@ export default function Escrows() {
       );
       expireEscrow(id);
       toast.success("Soroban escrow refunded on-chain successfully!", { id: "refund-tx" });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      toast.error(err.message || "Failed to submit on-chain refund", { id: "refund-tx" });
+      const msg = err instanceof Error ? err.message : "Failed to submit on-chain refund";
+      toast.error(msg, { id: "refund-tx" });
     }
   };
 
@@ -168,7 +170,6 @@ export default function Escrows() {
           filteredEscrows.map((escrow) => {
             const isCompleted = escrow.status === "completed";
             const isPending = escrow.status === "pending";
-            const isExpired = escrow.status === "expired";
             
             return (
               <div

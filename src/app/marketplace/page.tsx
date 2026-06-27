@@ -3,12 +3,12 @@ import { useState } from "react";
 import { useAgentPayStore } from "@/store/useAgentPayStore";
 import { MOCK_SERVICES, MOCK_TOKENS, truncateAddress, createEscrowRequestOnChain, registerServiceOnChain } from "@/lib/stellar";
 import { signTransaction } from "@/lib/freighter";
-import { Cpu, Plus, PlusCircle, CheckCircle, Database, HelpCircle } from "lucide-react";
+import { Plus, PlusCircle } from "lucide-react";
 import toast from "react-hot-toast";
 import { AgentService } from "@/types";
 
 export default function Marketplace() {
-  const { wallet, escrows, addEscrow, isDemoMode } = useAgentPayStore();
+  const { wallet, addEscrow } = useAgentPayStore();
   const [services, setServices] = useState<AgentService[]>([...MOCK_SERVICES]);
   
   // Registration Form State
@@ -71,9 +71,10 @@ export default function Marketplace() {
       setRegName("");
       setRegDesc("");
       setRegPrice("");
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      toast.error(err.message || "Failed to register service on-chain", { id: "register-tx" });
+      const msg = err instanceof Error ? err.message : "Failed to register service on-chain";
+      toast.error(msg, { id: "register-tx" });
     } finally {
       setRegistering(false);
     }
@@ -119,9 +120,10 @@ export default function Marketplace() {
 
       addEscrow(newEscrow);
       toast.success(`Escrow contract initialized! ID: ${requestId}`, { id: "escrow-tx" });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      toast.error(err.message || "Failed to create on-chain request", { id: "escrow-tx" });
+      const msg = err instanceof Error ? err.message : "Failed to create on-chain request";
+      toast.error(msg, { id: "escrow-tx" });
     } finally {
       setLoadingServiceId(null);
     }

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
-import { Wallet, Info, Activity } from "lucide-react";
+import { Wallet } from "lucide-react";
 import { useAgentPayStore } from "@/store/useAgentPayStore";
 import { truncateAddress } from "@/lib/stellar";
 import { connectWallet, checkFreighterConnected } from "@/lib/freighter";
@@ -23,7 +23,7 @@ export default function Navbar() {
 
   useEffect(() => {
     setDemoMode(isDemoMode);
-  }, []);
+  }, [isDemoMode, setDemoMode]);
 
   const handleConnect = async () => {
     setConnecting(true);

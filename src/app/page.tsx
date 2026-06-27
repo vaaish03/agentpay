@@ -1,6 +1,5 @@
 "use client";
 import { useAgentPayStore } from "@/store/useAgentPayStore";
-import { getStellarExpertUrl, truncateAddress } from "@/lib/stellar";
 import { format } from "date-fns";
 import { ArrowUpRight, CheckCircle2, AlertCircle, Clock, ShieldAlert, Cpu } from "lucide-react";
 import Link from "next/link";

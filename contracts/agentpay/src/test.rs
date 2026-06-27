@@ -1,14 +1,16 @@
 #![cfg(test)]
 use super::{AgentPayContract, AgentPayContractClient, RequestStatus};
 use soroban_sdk::{
-    symbol_short, testutils::{Address as _, Ledger}, token, Address, BytesN, Env, Symbol
+    testutils::{Address as _, Ledger},
+    token, Address, BytesN, Env, Symbol,
 };
 
 // Create a simple test token utility
 fn create_token_contract<'a>(env: &Env, admin: &Address) -> token::Client<'a> {
     token::Client::new(
         env,
-        &env.register_stellar_asset_contract(admin.clone()),
+        &env.register_stellar_asset_contract_v2(admin.clone())
+            .address(),
     )
 }
 
@@ -28,7 +30,7 @@ fn test_registration_and_payment_flow() {
 
     // Setup token
     let token = create_token_contract(&env, &token_admin);
-    
+
     // Mint tokens to client
     token::StellarAssetClient::new(&env, &token.address).mint(&client_addr, &1000);
     assert_eq!(token.balance(&client_addr), 1000);
@@ -121,7 +123,7 @@ fn test_refund_after_timeout() {
     // Verify token balances and request status
     assert_eq!(token.balance(&contract_id), 0);
     assert_eq!(token.balance(&client_addr), 1000); // refunded back to 1000
-    
+
     let req_info = client.get_request(&request_id).unwrap();
     assert_eq!(req_info.status, RequestStatus::Refunded);
 }
@@ -212,4 +214,3 @@ fn test_claim_payment_not_provider() {
     // Try claiming as unauthorized_addr (not provider_addr)
     client.claim_payment(&unauthorized_addr, &request_id, &result_hash);
 }
-

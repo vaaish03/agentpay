@@ -5,7 +5,6 @@ import {
   Address,
   nativeToScVal,
   scValToNative,
-  Operation,
   Contract,
   rpc,
   xdr,
@@ -137,13 +136,13 @@ export async function createEscrowRequestOnChain(
   }
 
   // 7. Poll for transaction result receipt
-  let status = response.status as any;
-  let txResult: any = null;
+  let status: string = response.status;
+  let txResult: rpc.Api.GetTransactionResponse | null = null;
 
   for (let i = 0; i < 15; i++) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    txResult = (await rpcServer.getTransaction(response.hash)) as any;
-    status = txResult.status as any;
+    txResult = await rpcServer.getTransaction(response.hash);
+    status = txResult.status;
     if (status === "SUCCESS") {
       break;
     }
@@ -158,11 +157,13 @@ export async function createEscrowRequestOnChain(
 
   // 8. Parse the req_new event to extract the on-chain minted request ID
   let requestId = String(Date.now());
-  if (txResult && txResult.resultMetaXdr) {
-    try {
-      const meta = typeof txResult.resultMetaXdr === "string"
-        ? xdr.TransactionMeta.fromXDR(txResult.resultMetaXdr, "base64")
-        : txResult.resultMetaXdr;
+  if (txResult) {
+    const txMeta = txResult as { resultMetaXdr?: string | xdr.TransactionMeta };
+    if (txMeta.resultMetaXdr) {
+      try {
+        const meta = typeof txMeta.resultMetaXdr === "string"
+          ? xdr.TransactionMeta.fromXDR(txMeta.resultMetaXdr, "base64")
+          : txMeta.resultMetaXdr;
       const events = meta.v3().sorobanMeta()?.events() || [];
       for (const event of events) {
         const topics = event.body().v0().topics();
@@ -177,6 +178,7 @@ export async function createEscrowRequestOnChain(
       }
     } catch (e) {
       console.error("Failed to parse request ID from transaction events", e);
+    }
     }
   }
 
@@ -237,13 +239,13 @@ export async function registerServiceOnChain(
   }
 
   // 6. Poll for transaction result receipt
-  let status = response.status as any;
-  let txResult: any = null;
+  let status: string = response.status;
+  let txResult: rpc.Api.GetTransactionResponse | null = null;
 
   for (let i = 0; i < 15; i++) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    txResult = (await rpcServer.getTransaction(response.hash)) as any;
-    status = txResult.status as any;
+    txResult = await rpcServer.getTransaction(response.hash);
+    status = txResult.status;
     if (status === "SUCCESS") {
       break;
     }
@@ -306,10 +308,10 @@ export async function claimPaymentOnChain(
     throw new Error(`Soroban RPC submission failed: ${JSON.stringify(response.errorResult)}`);
   }
 
-  let status = response.status as any;
+  let status: string = response.status;
   for (let i = 0; i < 15; i++) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    const txResult = (await rpcServer.getTransaction(response.hash)) as any;
+    const txResult = await rpcServer.getTransaction(response.hash);
     status = txResult.status;
     if (status === "SUCCESS") {
       break;
@@ -366,10 +368,10 @@ export async function refundRequestOnChain(
     throw new Error(`Soroban RPC submission failed: ${JSON.stringify(response.errorResult)}`);
   }
 
-  let status = response.status as any;
+  let status: string = response.status;
   for (let i = 0; i < 15; i++) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    const txResult = (await rpcServer.getTransaction(response.hash)) as any;
+    const txResult = await rpcServer.getTransaction(response.hash);
     status = txResult.status;
     if (status === "SUCCESS") {
       break;

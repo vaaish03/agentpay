@@ -54,10 +54,14 @@ impl AgentPayContract {
         provider.require_auth();
         assert!(price > 0, "price must be positive");
 
-        let service = ServiceInfo { price, token: token.clone() };
-        env.storage()
-            .instance()
-            .set(&DataKey::Service(provider.clone(), service_id.clone()), &service);
+        let service = ServiceInfo {
+            price,
+            token: token.clone(),
+        };
+        env.storage().instance().set(
+            &DataKey::Service(provider.clone(), service_id.clone()),
+            &service,
+        );
 
         // Emit registration event
         env.events().publish(

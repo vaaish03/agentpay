@@ -20,6 +20,14 @@ jobs:
           toolchain: stable
           targets: wasm32-unknown-unknown
 
+      - name: Run Cargo Fmt Check
+        run: cargo fmt --check
+        working-directory: contracts/agentpay
+
+      - name: Run Cargo Clippy
+        run: cargo clippy --all-targets -- -D warnings
+        working-directory: contracts/agentpay
+
       - name: Run Cargo Test
         run: cargo test
         working-directory: contracts/agentpay
@@ -39,6 +47,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
+
+      - name: Run ESLint
+        run: npm run lint
 
       - name: Run TypeScript type check
         run: npx tsc --noEmit
