@@ -17,6 +17,7 @@ AgentPay is an autonomous billing, service registry, and multi-party escrow plat
 *   **Contract Deployment Address (Soroban Testnet):** `CDUYOG6TTDD6NPLE27U4VTAXYJSMYGMYSCKBORZ6IZ4H3X7UGLHXMJ2F`
 *   **Transaction Hash for Contract Interaction:** `4c2da5b9b50f77a476fa20a5b6ad75986b86010f87aab9a78b0e3e0ee0b4a79b`
 *   **Explorer Link:** [Stellar Expert - CDUYOG...](https://stellar.expert/explorer/testnet/contract/CDUYOG6TTDD6NPLE27U4VTAXYJSMYGMYSCKBORZ6IZ4H3X7UGLHXMJ2F)
+*   **Contract Deployment Screenshot:** ![Contract Deployment](docs/screenshots/contract-deployment.png)
 *   **Demo Video Link:** [Click here to watch the walkthrough](https://youtube.com/watch?v=placeholder) *(Please replace this placeholder with your 1-2 min Loom/YouTube video link)*
 
 ---
@@ -80,6 +81,9 @@ test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 ### 3. Test Output
 ![Tests Output](docs/screenshots/tests-passing.png)
+
+### 4. Contract Deployed on Soroban Testnet (Stellar Expert)
+![Contract Deployed](docs/screenshots/contract-deployment.png)
 
 ---
 
