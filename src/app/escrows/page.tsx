@@ -122,9 +122,9 @@ export default function Escrows() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-extrabold text-white tracking-tight">Escrow Ledger</h1>
+        <h1 className="text-3xl font-extrabold text-white tracking-tight">Your activity</h1>
         <p className="text-text-secondary text-sm mt-1">
-          Detailed real-time ledger of all escrow states, cryptographic request hashes, and settlements.
+          A clear history of requests, payments, and what happened next.
         </p>
       </div>
 
@@ -134,7 +134,7 @@ export default function Escrows() {
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
           <input
             type="text"
-            placeholder="Search by Agent name, Address or Escrow ID..."
+          placeholder="Search activity..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-white/5 border border-white/5 focus:border-accent-green focus:outline-none rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder:text-text-muted transition-colors"
@@ -200,19 +200,19 @@ export default function Escrows() {
 
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2 text-[10px] text-text-secondary">
                     <div>
-                      <span className="text-text-muted block font-semibold">CLIENT AGENT</span>
+                      <span className="text-text-muted block font-semibold">FROM</span>
                       <span className="font-mono text-white mt-0.5 block">{truncateAddress(escrow.clientAddress, 6)}</span>
                     </div>
                     <div>
-                      <span className="text-text-muted block font-semibold">PROVIDER AGENT</span>
+                      <span className="text-text-muted block font-semibold">TO</span>
                       <span className="font-mono text-white mt-0.5 block">{truncateAddress(escrow.providerAddress, 6)}</span>
                     </div>
                     <div>
-                      <span className="text-text-muted block font-semibold">REQUEST HASH</span>
+                      <span className="text-text-muted block font-semibold">REQUEST</span>
                       <span className="font-mono text-white mt-0.5 block truncate max-w-[120px]">{escrow.requestHash}</span>
                     </div>
                     <div>
-                      <span className="text-text-muted block font-semibold">RESPONSE HASH</span>
+                      <span className="text-text-muted block font-semibold">RESULT</span>
                       <span className="font-mono text-accent-green mt-0.5 block truncate max-w-[120px]">
                         {escrow.resultHash || "Pending..."}
                       </span>
@@ -238,13 +238,13 @@ export default function Escrows() {
                           onClick={() => handleClaim(escrow.id)}
                           className="bg-accent-green text-black hover:bg-accent-green/90 transition-all font-bold text-[10px] px-3.5 py-1.5 rounded-lg flex-1 md:flex-none"
                         >
-                          Claim (API Deliver)
+                          Mark as delivered
                         </button>
                         <button
                           onClick={() => handleRefund(escrow.id)}
                           className="bg-white/5 text-red-400 hover:bg-white/10 border border-white/5 transition-all font-bold text-[10px] px-3.5 py-1.5 rounded-lg flex-1 md:flex-none"
                         >
-                          Refund
+                          Request refund
                         </button>
                       </>
                     )}
