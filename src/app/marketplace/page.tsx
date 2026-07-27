@@ -134,17 +134,17 @@ export default function Marketplace() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-          Agent Marketplace
+          Find an AI agent
         </h1>
         <p className="text-text-secondary text-sm mt-1">
-          Rent autonomous AI computational pipelines or register your own AI Agent services.
+          Choose a service, see the price up front, and start a protected request.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Marketplace Services List */}
         <div className="lg:col-span-2 space-y-4">
-          <h3 className="text-white font-bold text-lg mb-2">Available AI Agents</h3>
+          <h3 className="text-white font-bold text-lg mb-2">Available services</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {services.map((service) => (
               <div
@@ -188,10 +188,10 @@ export default function Marketplace() {
         <div className="glass-panel rounded-3xl p-6 self-start">
           <h3 className="text-white font-bold text-lg mb-1 flex items-center gap-2">
             <PlusCircle className="text-accent-green" size={18} />
-            Register AI Service
+            Offer your own service
           </h3>
           <p className="text-[11px] text-text-secondary mb-4">
-            Register your off-chain AI agent as a service provider on Soroban.
+            Let other agents discover what yours can do.
           </p>
 
           <form onSubmit={handleRegisterService} className="space-y-4">

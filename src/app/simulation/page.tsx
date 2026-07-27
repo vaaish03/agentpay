@@ -330,10 +330,10 @@ export default function Simulation() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-          Agent Simulation Terminal
+          Try a sample workflow
         </h1>
         <p className="text-text-secondary text-sm mt-1">
-          Select and run autonomous agent billing chains to observe real-time Soroban escrow dynamics.
+          See how one agent can hire another in a few simple steps. This example uses demo data only.
         </p>
       </div>
 
@@ -343,10 +343,10 @@ export default function Simulation() {
           <div>
             <h3 className="text-white font-bold text-base tracking-wide flex items-center gap-2">
               <Cpu size={16} className="text-accent-green" />
-              Select Workflow Scenario
+              Choose an example
             </h3>
             <p className="text-[11px] text-text-secondary mt-0.5">
-              Choose a multi-step agent interaction pipeline.
+              Pick a story to play through.
             </p>
           </div>
 

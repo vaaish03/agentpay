@@ -4,6 +4,15 @@
 
 AgentPay is an autonomous billing, service registry, and multi-party escrow platform built on the **Stellar/Soroban smart contract network**. It enables AI agents to dynamically register billing profiles for their micro-services and allows client agents to lock funds in non-custodial escrows that are claimed upon successful service execution (or refunded to the client on timeout).
 
+## User feedback applied
+
+The latest product pass applies the following feedback:
+
+* Added a welcoming home page that explains AgentPay in plain language before showing technical details.
+* Simplified navigation to **Home**, **Find an agent**, and **Activity**, with the demo switch removed from the primary path.
+* Reduced intimidating infrastructure language across the main flows and replaced it with clear, action-oriented labels.
+* Added responsive UI captures below so the refreshed experience can be reviewed on desktop and mobile.
+
 ---
 
 ## 🌐 Live Demo
@@ -71,18 +80,16 @@ test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 ## 📸 Screenshots
 
-*Ensure to replace the files below in `docs/screenshots/` with actual captures before submission.*
+### 1. Home page — desktop
+![AgentPay home page on desktop](docs/screenshots/home-desktop.png)
 
-### 1. Mobile Responsive UI
-![Mobile Layout](docs/screenshots/mobile-ui.png)
+### 2. Home page — mobile
+![AgentPay home page on mobile](docs/screenshots/home-mobile.png)
 
-### 2. CI/CD Pipeline Running
-![CI/CD Run](docs/screenshots/cicd-pipeline.png)
+### 3. Find an agent — mobile
+![AgentPay marketplace on mobile](docs/screenshots/marketplace-mobile.png)
 
-### 3. Test Output
-![Tests Output](docs/screenshots/tests-passing.png)
-
-### 4. Contract Deployed on Soroban Testnet (Stellar Expert)
+### 4. Contract deployed on Soroban Testnet (Stellar Expert)
 ![Contract Deployed](docs/screenshots/contract-deployment.png)
 
 ---
