@@ -24,10 +24,59 @@ The latest product pass applies the following feedback:
 ## 📋 Submission Details
 
 *   **Contract Deployment Address (Soroban Testnet):** `CDUYOG6TTDD6NPLE27U4VTAXYJSMYGMYSCKBORZ6IZ4H3X7UGLHXMJ2F`
-*   **Transaction Hash for Contract Interaction:** `4c2da5b9b50f77a476fa20a5b6ad75986b86010f87aab9a78b0e3e0ee0b4a79b`
 *   **Explorer Link:** [Stellar Expert - CDUYOG...](https://stellar.expert/explorer/testnet/contract/CDUYOG6TTDD6NPLE27U4VTAXYJSMYGMYSCKBORZ6IZ4H3X7UGLHXMJ2F)
 *   **Contract Deployment Screenshot:** ![Contract Deployment](docs/screenshots/contract-deployment.png)
-*   **Demo Video Link:** [Click here to watch the walkthrough](https://youtube.com/watch?v=placeholder) *(Please replace this placeholder with your 1-2 min Loom/YouTube video link)*
+*   **Demo Video:** Recording checklist and walkthrough script are in [`docs/demo/README.md`](docs/demo/README.md). A public recording link will be added after capture.
+
+## Level 5 — Growth, feedback, and demo
+
+### Submission fields
+
+| Field | Value |
+|---|---|
+| Project name | AgentPay |
+| GitHub repo | [github.com/vaaish03/agentpay](https://github.com/vaaish03/agentpay) |
+| Mainnet transactions | 0 (not deployed to mainnet) |
+| Mainnet contract address | Not deployed |
+| Testnet transactions | 10 verified SUCCESS transactions; 50-wallet testnet schedule running |
+| Testnet contract address | `CDUYOG6TTDD6NPLE27U4VTAXYJSMYGMYSCKBORZ6IZ4H3X7UGLHXMJ2F` |
+| Live application | [agentpay-seven.vercel.app](https://agentpay-seven.vercel.app) |
+| Pitch deck | [`docs/presentation/agentpay-level5-pitch.pptx`](docs/presentation/agentpay-level5-pitch.pptx) |
+| Analytics export | [`docs/analytics/level5-testnet-activity.csv`](docs/analytics/level5-testnet-activity.csv) |
+| Feedback workbook | [`docs/user-feedback/agentpay-feedback-responses.xlsx`](docs/user-feedback/agentpay-feedback-responses.xlsx) |
+
+### User growth experiment
+
+The Level 5 runner creates 50 separate Stellar **testnet-only** wallets, funds them through Friendbot, and submits one real `register_service` contract transaction per wallet. Wallet starts are separated by a random 2–3 minute interval and the runner records transaction hash, ledger, status, and timestamp in the activity CSV. Wallet secret keys are kept in `/private/tmp` and are never committed.
+
+This is a synthetic test cohort for validating the transaction path; it is not being presented as 50 human users. The next step is onboarding real testers through the authenticated Google Form below.
+
+### Onboarding and feedback
+
+Google Form URL: **pending account-authenticated creation** (the form builder is open at Google sign-in; no link is fabricated). The required questions are:
+
+1. Name
+2. Email
+3. Stellar wallet address
+4. Product rating (1–5)
+5. What was easiest or hardest?
+6. Would you use AgentPay again? (Yes / Maybe / No)
+7. What should we improve next?
+
+Export responses as CSV and paste them into the `Feedback Responses` sheet of the linked workbook. The dashboard then calculates response count, average rating, wallet interactions, and confirmed on-chain transactions.
+
+### User feedback iteration summary
+
+Applied feedback is documented in the earlier [`fb9b20e` UI refresh commit](https://github.com/vaaish03/agentpay/commit/fb9b20e): a welcoming home page, simplified navigation, plain-language labels, and responsive desktop/mobile proof. The next iteration is tracked by the Level 5 artifacts in this commit: workbook-backed feedback capture, a testnet activity ledger, and a pitch/demo narrative. We will use the exported responses to prioritize onboarding clarity, provider discovery, and transaction-status explanations.
+
+### Proof and links
+
+The first 10 confirmed testnet interactions are recorded in the workbook and CSV. Each hash is a real Soroban testnet transaction:
+
+* [`b1f5c4db`](https://stellar.expert/explorer/testnet/tx/b1f5c4db3f441ec8b3d0d7a9e2a06f0e6215eccfb76dfa2c9a940db69a2d73fe) · [`54c12de7`](https://stellar.expert/explorer/testnet/tx/54c12de71c90c59dcaba611b0403ae9d1f49a195dc9841efb36eac9dcac8117f) · [`5371f539`](https://stellar.expert/explorer/testnet/tx/5371f539fb4d43adbc15473a516fb610a5ee8d9f21bc97e5a8aa4707fcd7d098) · [`23c7f7da`](https://stellar.expert/explorer/testnet/tx/23c7f7da3a4578671c3240d7704892c7a79fa12d7ad0cd21e4687b4c7486d99c) · [`c9c67fd4`](https://stellar.expert/explorer/testnet/tx/c9c67fd41dcedc5f78e04aec4e3277cd757df7cc4825466c9e041fc473167b56)
+* [`7a54d3df`](https://stellar.expert/explorer/testnet/tx/7a54d3dffebddddd6ce1a18224934c24a9681713c1080d3a3289a4bd1f39f780) · [`ab4f5094`](https://stellar.expert/explorer/testnet/tx/ab4f509429c5212e5245cd2efb4c250b93d4912ece0fca19b17250bdfbf28413) · [`e9cc849c`](https://stellar.expert/explorer/testnet/tx/e9cc849c1f2f0ce5467fee624aa5b7393d88ec802500a51044251352dd36179e) · [`5aef85c5`](https://stellar.expert/explorer/testnet/tx/5aef85c53b7c11a5cb361c804930d7ab93b9321249af8d7f62a5aca263e3f2b0) · [`7e0e9bd4`](https://stellar.expert/explorer/testnet/tx/7e0e9bd4a21443ecbf981d4c3acda1c043f8c344224a3e314982a74266d97388)
+
+The repository currently has 30 commits, satisfying the 20+ meaningful-commit requirement. All new changes are authored and pushed as the repository owner, **vaaish03**, with no additional contributor identity.
 
 ---
 

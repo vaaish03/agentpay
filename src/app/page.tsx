@@ -57,6 +57,12 @@ export default function Home() {
               <Play size={15} fill="currentColor" />
               See a quick example
             </Link>
+            <Link
+              href="/onboarding"
+              className="inline-flex items-center justify-center rounded-xl border border-white/10 px-5 py-3 text-sm font-semibold text-slate-300 transition hover:border-accent-green/30 hover:text-white"
+            >
+              Join the test cohort
+            </Link>
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-slate-400">
